@@ -9,6 +9,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import static org.springframework.util.ClassUtils.isPresent;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -40,9 +42,8 @@ public class AdminController {
         model.addAttribute("allRoles", roleService.findAll());
         return "user";
     }
-
     @PostMapping("/users")
-    public String addUser(User user) {
+    public String addUser(@ModelAttribute User user) {
         userService.add(user);
         return "redirect:/admin/users";
     }

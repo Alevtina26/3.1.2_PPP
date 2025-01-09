@@ -24,11 +24,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User add(User user) {
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-
-        encodeUserPassword(user);
         return userRepository.save(user);
     }
 
@@ -71,4 +66,5 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
 }

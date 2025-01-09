@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
+
+
 @Service
 @Transactional(readOnly = true)
 public class UserDetailServiceImpl implements UserDetailsService {

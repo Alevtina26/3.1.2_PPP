@@ -29,19 +29,25 @@ public class InitDB {
         Role roleUser = new Role("ROLE_USER");
 
         User admin = new User("admin", "Ivan", "Petrov", LocalDate.now(), "root");
-        admin.setPassword(passwordEncoder.encode("root"));
+
+        // Проверка пароля перед установкой
+        if (admin.getPassword() == null || admin.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Admin password cannot be null or empty");
+        }
+
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.addRole(roleService.add(roleAdmin));
         userService.add(admin);
 
         User user = new User("user", "Boris", "Britva", LocalDate.now(), "root");
-        user.setPassword(passwordEncoder.encode("root"));
+
+        // Проверка пароля перед установкой
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("User password cannot be null or empty");
+        }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.addRole(roleService.add(roleUser));
         userService.add(user);
-
-        User userAdmin = new User("moderator", "Oleg", "Ivanov", LocalDate.now(), "root");
-        userAdmin.setPassword(passwordEncoder.encode("root"));
-        userAdmin.addRole(roleService.add(roleUser));
-        userAdmin.addRole(roleService.add(roleAdmin));
-        userService.add(userAdmin);
     }
 }
